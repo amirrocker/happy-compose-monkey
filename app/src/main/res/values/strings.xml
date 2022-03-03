@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">HappyComposeMonkey</string>
+    <string name="app_name" translatable="false">HappyComposeMonkey</string>
+    <string name="my_courses">My Courses</string>
+    <string name="featured">Featured</string>
+    <string name="search">Search</string>
+    <string name="value_c">OnBoarding Screen</string>
+    <string name="value_d">A string resource</string>
+    <string name="course_step_steps" translatable="false">%1$d / %2$d</string>
+    <string name="edited_in_file">Add string values to strings file using the editor</string>
+    <string name="collapse_bottom_sheet">Collapse BottomSheet</string>
 </resources>

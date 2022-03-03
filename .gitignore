@@ -19,3 +19,4 @@ local.properties
 /gradlew
 /gradlew.bat
 /local.properties
+/gradle/wrapper/

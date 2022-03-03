@@ -1,6 +1,9 @@
 package de.amirrocker.happycomposemonkey.ui.theme
 
+import android.graphics.Color
 import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.material.Colors
+import androidx.compose.material.LocalElevationOverlay
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
@@ -45,3 +48,25 @@ fun HappyComposeMonkeyTheme(
         content = content
     )
 }
+
+/**
+ * Alternate to Theme [MaterialTheme] to enable adding own theme systems such as
+ * [Elevations] and / or extend types such [Color]
+ */
+object HappyComposeMonkeyTheme {
+
+    /* a proxy to [MaterialTheme] Colors */
+    val colors: Colors
+        @Composable
+        get() = MaterialTheme.colors
+
+    /**
+     * Retrieves the current [Elevations] at the call site's position in the hierarchy.
+     * TODO Look into this more
+     */
+    val elevations : Elevations
+        @Composable
+        get() = LocalElevations.current
+}
+
+
