@@ -1,12 +1,9 @@
-package de.amirrocker.happycomposemonkey.presentation.courses
+package de.amirrocker.happycomposemonkey.presentation.emergencies
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -20,14 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.google.accompanist.insets.statusBarsPadding
 import de.amirrocker.happycomposemonkey.R
-import de.amirrocker.happycomposemonkey.model.Course
+import de.amirrocker.happycomposemonkey.model.Emergency
 import de.amirrocker.happycomposemonkey.model.courses
-import de.amirrocker.happycomposemonkey.presentation.CoursesAppBar
 import de.amirrocker.happycomposemonkey.ui.theme.HappyComposeMonkeyTheme
 
 @Composable
-fun FeaturedCourses(
-    courses: List<Course>,
+fun FeaturedEmergencies(
+    courses: List<Emergency>,
     selectCourse: (Long)->Unit,
     modifier:Modifier = Modifier
 ) {
@@ -36,11 +32,11 @@ fun FeaturedCourses(
             .statusBarsPadding()
     ) {
         item {
-            CoursesAppBar()
+            EmergenciesAppBar()
         }
         items(courses) { course ->
-            FeaturedCourse(
-                course = course,
+            FeaturedEmergency(
+                emergency = course,
                 selectCourse = selectCourse
             )
         }
@@ -48,8 +44,8 @@ fun FeaturedCourses(
 }
 
 @Composable
-fun FeaturedCourse(
-    course: Course,
+fun FeaturedEmergency(
+    emergency: Emergency,
     selectCourse: (Long)->Unit,
     modifier:Modifier = Modifier
 ) {
@@ -57,7 +53,7 @@ fun FeaturedCourse(
     Surface(
         modifier = modifier.padding(4.dp),
         color = MaterialTheme.colors.surface,
-        elevation = HappyComposeMonkeyTheme.elevations.card,
+        elevation = HappyComposeMonkeyTheme.elevation.card,
         shape = MaterialTheme.shapes.medium
     ) {
         val featuredString = stringResource(id = R.string.value_d)
@@ -65,7 +61,7 @@ fun FeaturedCourse(
         ConstraintLayout(
             modifier = Modifier
                 .clickable {
-                    selectCourse(course.courseId)
+                    selectCourse(emergency.courseId)
                 }
                 .semantics {
                     contentDescription = featuredString
@@ -74,7 +70,7 @@ fun FeaturedCourse(
         {
             val (name) = createRefs()
             Text(
-                text=course.name,
+                text=emergency.name,
                 style = MaterialTheme.typography.subtitle1,
                 modifier= modifier
                     .padding(8.dp)
@@ -92,8 +88,8 @@ fun FeaturedCourse(
 @Composable
 fun FeaturedCoursePreview() {
     HappyComposeMonkeyTheme {
-        FeaturedCourse(
-            course = courses.first(),
+        FeaturedEmergency(
+            emergency = courses.first(),
             selectCourse = { }
         )
     }
@@ -102,7 +98,7 @@ fun FeaturedCoursePreview() {
 @Preview
 @Composable
 fun FeaturedCoursesPreview() {
-    FeaturedCourses(
+    FeaturedEmergencies(
         courses = courses,
         selectCourse = {} )
 }

@@ -2,6 +2,7 @@ package de.amirrocker.happycomposemonkey.model
 
 import androidx.compose.runtime.Immutable
 
+// Lesson becomes Details
 @Immutable
 data class Lesson(
     val id:Long,

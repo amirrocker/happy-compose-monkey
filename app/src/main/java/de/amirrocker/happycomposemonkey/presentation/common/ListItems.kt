@@ -27,18 +27,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import de.amirrocker.happycomposemonkey.R
-import de.amirrocker.happycomposemonkey.model.Course
+import de.amirrocker.happycomposemonkey.model.Emergency
 import de.amirrocker.happycomposemonkey.model.courses
 import de.amirrocker.happycomposemonkey.presentation.utils.NetworkImage
 import de.amirrocker.happycomposemonkey.ui.theme.HappyComposeMonkeyTheme
 
 @Composable
 fun CourseListItem(
-    course: Course,
+    emergency: Emergency,
     clickCourse: () -> Unit,
     modifier: Modifier = Modifier,
     shape: Shape = RectangleShape,
-    elevation: Dp = HappyComposeMonkeyTheme.elevations.card,
+    elevation: Dp = HappyComposeMonkeyTheme.elevation.card,
     titleStyle: TextStyle = MaterialTheme.typography.body1,
     iconSize: Dp = 16.dp
 ) {
@@ -52,7 +52,7 @@ fun CourseListItem(
             modifier = Modifier.clickable(onClick = clickCourse)
         ) {
             NetworkImage(
-                url = course.thumbUrl,
+                url = emergency.thumbUrl,
                 modifier = Modifier.aspectRatio(1f)
             )
             Column(
@@ -65,7 +65,7 @@ fun CourseListItem(
                     )
             ) {
                 Text(
-                    text = course.name,
+                    text = emergency.name,
                     style = titleStyle,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
@@ -79,7 +79,7 @@ fun CourseListItem(
                         modifier = Modifier.size(iconSize)
                     )
                     Text(
-                        text = stringResource(id = R.string.course_step_steps, course.step, course.steps),
+                        text = stringResource(id = R.string.course_step_steps, emergency.step, emergency.steps),
                         color = MaterialTheme.colors.primary,
                         style = MaterialTheme.typography.caption,
                         modifier = Modifier
@@ -88,7 +88,7 @@ fun CourseListItem(
                             .wrapContentWidth(Alignment.Start)
                     )
                     NetworkImage(
-                        url = course.instructor,
+                        url = emergency.instructor,
                         contentDescription = "Instructor Image",
                         modifier = Modifier
                             .size(28.dp)
@@ -104,7 +104,7 @@ fun CourseListItem(
 @Composable
 fun CourseListItemPreview() {
     CourseListItem(
-        course = courses.first(),
+        emergency = courses.first(),
         clickCourse = {
             println("list item clicked")
         }

@@ -1,6 +1,9 @@
 package de.amirrocker.happycomposemonkey.model
 
-data class Course(
+import androidx.compose.runtime.Immutable
+
+@Immutable
+data class Emergency(
     val courseId: Long,
     val name: String,
     val subject: String,
@@ -16,13 +19,13 @@ data class Course(
  * fake repo
  */
 object CourseRepo {
-    fun getCourse(courseId: Long): Course = courses.find { course -> course.courseId == courseId } ?: courses[0]
-    fun getRelated(courseId: Long): List<Course> = courses
+    fun getCourse(courseId: Long): Emergency = courses.find { course -> course.courseId == courseId } ?: courses[0]
+    fun getRelated(courseId: Long): List<Emergency> = courses
 }
 
 val courses = listOf(
 
-    Course(
+    Emergency(
         courseId=0,
         name="Kurs A",
         subject = "Subject String0",
@@ -32,7 +35,7 @@ val courses = listOf(
         steps = 7,
         step = 1
     ),
-    Course(
+    Emergency(
         courseId=1,
         name="nameString1",
         subject = "Subject String1",
@@ -42,7 +45,7 @@ val courses = listOf(
         steps = 7,
         step = 1
     ),
-    Course(
+    Emergency(
         courseId=2,
         name="nameString2",
         subject = "Subject String2",
@@ -52,7 +55,7 @@ val courses = listOf(
         steps = 7,
         step = 1
     ),
-    Course(
+    Emergency(
         courseId=2,
         name="nameString2",
         subject = "Subject String2",

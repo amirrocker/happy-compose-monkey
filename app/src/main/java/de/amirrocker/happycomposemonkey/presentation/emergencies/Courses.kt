@@ -1,4 +1,4 @@
-package de.amirrocker.happycomposemonkey.presentation.courses
+package de.amirrocker.happycomposemonkey.presentation.emergencies
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
@@ -13,10 +13,9 @@ import de.amirrocker.happycomposemonkey.MainDestinations
 import de.amirrocker.happycomposemonkey.R
 import de.amirrocker.happycomposemonkey.model.TopicRepo
 import de.amirrocker.happycomposemonkey.model.courses
-import de.amirrocker.happycomposemonkey.presentation.MyCourses
 
 
-fun NavGraphBuilder.courses(
+fun NavGraphBuilder.emergencies(
     onCourseSelected: (Long, NavBackStackEntry) -> Unit,
     onboardingComplete: State<Boolean>,
     signInComplete: State<Boolean>,
@@ -24,7 +23,7 @@ fun NavGraphBuilder.courses(
     modifier: Modifier = Modifier
 ) {
 
-    composable(CourseTabs.FEATURED.route) { from ->
+    composable(EmergencyTabs.CURRENT.route) { from ->
         LaunchedEffect(key1 = onboardingComplete, key2 = signInComplete) {
             if (!signInComplete.value) {
                 navController.navigate(MainDestinations.SIGNIN_ROUTE)
@@ -34,22 +33,22 @@ fun NavGraphBuilder.courses(
             }
         }
         if(onboardingComplete.value && signInComplete.value ) {
-            FeaturedCourses(
+            FeaturedEmergencies(
                 courses = courses,
                 selectCourse = { id -> onCourseSelected(id, from) }
             )
         }
     }
-    composable(CourseTabs.MY_COURSES.route) { from ->
-        MyCourses(
+    composable(EmergencyTabs.MY_EMERGENCIES.route) { from ->
+        MyEmergencies(
             courses = courses,
             selectCourse = { id ->
                 onCourseSelected(id, from)
             }
         )
     }
-    composable(CourseTabs.SEARCH.route) { from ->
-        SearchCourses(
+    composable(EmergencyTabs.SEARCH.route) { from ->
+        SearchEmergencies(
             topics = TopicRepo.getTopics(), modifier=modifier
         )
     }
@@ -57,19 +56,20 @@ fun NavGraphBuilder.courses(
 
 }
 
-enum class CourseTabs(
+enum class EmergencyTabs(
     @StringRes val title: Int,
     @DrawableRes val icon: Int,
     val route: String
     ) {
-    MY_COURSES(R.string.my_courses, R.drawable.ic_launcher_background, CoursesDestinations.MY_COURSES_ROUTE),
-    FEATURED(R.string.featured, R.drawable.ic_launcher_background, CoursesDestinations.FEATURED_ROUTE),
-    SEARCH(R.string.search, R.drawable.ic_launcher_background, CoursesDestinations.SEARCH_COURSES_ROUTE)
+    MY_EMERGENCIES(R.string.my_courses, R.drawable.ic_launcher_background, CoursesDestinations.MY_EMERGENCIES_ROUTE),
+    CURRENT(R.string.featured, R.drawable.ic_launcher_background, CoursesDestinations.CURRENT_EMERGENCIES_ROUTE),
+    SEARCH(R.string.search, R.drawable.ic_launcher_background, CoursesDestinations.SEARCH_EMERGENCIES_ROUTE)
 }
 
 private object CoursesDestinations {
-    const val FEATURED_ROUTE = "courses/featured"
-    const val MY_COURSES_ROUTE = "courses/my"
-    const val SEARCH_COURSES_ROUTE = "courses/search"
+    // featured becomes current
+    const val CURRENT_EMERGENCIES_ROUTE = "emergencies/current"
+    const val MY_EMERGENCIES_ROUTE = "emergencies/my"
+    const val SEARCH_EMERGENCIES_ROUTE = "emergencies/search"
 }
 

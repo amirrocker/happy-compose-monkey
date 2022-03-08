@@ -1,4 +1,4 @@
-package de.amirrocker.happycomposemonkey.presentation.courses
+package de.amirrocker.happycomposemonkey.presentation.emergencies
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -32,7 +32,7 @@ import de.amirrocker.happycomposemonkey.model.Topic
 import de.amirrocker.happycomposemonkey.model.TopicRepo
 
 @Composable
-fun SearchCourses(
+fun SearchEmergencies(
     topics: List<Topic>,
     modifier: Modifier = Modifier
 ) {
@@ -114,7 +114,7 @@ fun AppBar(
 @Preview
 @Composable
 fun Preview() {
-    SearchCourses(
+    SearchEmergencies(
         topics = TopicRepo.getTopics(),
         modifier = Modifier
     )

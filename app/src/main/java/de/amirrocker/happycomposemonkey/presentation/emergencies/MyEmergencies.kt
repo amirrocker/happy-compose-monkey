@@ -1,4 +1,4 @@
-package de.amirrocker.happycomposemonkey.presentation
+package de.amirrocker.happycomposemonkey.presentation.emergencies
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,13 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsHeight
-import de.amirrocker.happycomposemonkey.model.Course
+import de.amirrocker.happycomposemonkey.model.Emergency
 import de.amirrocker.happycomposemonkey.model.courses
 import de.amirrocker.happycomposemonkey.presentation.common.CourseListItem
 
 @Composable
-fun MyCourses(
-    courses: List<Course>,
+fun MyEmergencies(
+    courses: List<Emergency>,
     selectCourse: (Long)->Unit,
     modifier: Modifier = Modifier
 ) {
@@ -29,28 +29,28 @@ fun MyCourses(
             Spacer(modifier = Modifier.statusBarsHeight())
         }
         item {
-            CoursesAppBar()
+            EmergenciesAppBar()
         }
-        itemsIndexed(courses) { index:Int, course:Course ->
-            MyCourse(index, course, selectCourse)
+        itemsIndexed(courses) { index:Int, emergency:Emergency ->
+            MyEmergency(index, emergency, selectCourse)
         }
     }
 }
 
 @Composable
-fun CoursesAppBar() {
+fun EmergenciesAppBar() {
     Row {
         Text(
-            text="placeholder",
+            text="My Emergencies",
             modifier = Modifier.padding(8.dp)
         )
     }
 }
 
 @Composable
-fun MyCourse(
+fun MyEmergency(
     index:Int,
-    course: Course,
+    emergency: Emergency,
     selectCourse: (Long) -> Unit,
 ) {
     Row(modifier = Modifier.padding(8.dp)) {
@@ -62,8 +62,8 @@ fun MyCourse(
         }
         Spacer(modifier = Modifier.width(stagger))
         CourseListItem(
-            course = course,
-            clickCourse = { selectCourse(course.courseId) },
+            emergency = emergency,
+            clickCourse = { selectCourse(emergency.courseId) },
             modifier = Modifier.height(96.dp),
             shape = RoundedCornerShape(topStart = 24.dp),
         )
@@ -73,7 +73,7 @@ fun MyCourse(
 @Preview
 @Composable
 fun MyCoursesPreview() {
-    MyCourses(
+    MyEmergencies(
         courses = courses,
         selectCourse = {}
     )

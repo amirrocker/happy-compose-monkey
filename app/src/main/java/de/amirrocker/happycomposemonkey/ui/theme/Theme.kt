@@ -3,11 +3,13 @@ package de.amirrocker.happycomposemonkey.ui.theme
 import android.graphics.Color
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.Colors
-import androidx.compose.material.LocalElevationOverlay
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.unit.dp
+import de.amirrocker.happycomposemonkey.R
 
 private val DarkColorPalette = darkColors(
     primary = Purple200,
@@ -30,6 +32,15 @@ private val LightColorPalette = lightColors(
     */
 )
 
+
+private val LightElevation = Elevation()
+
+private val DarkElevation = Elevation(card = 1.dp)
+
+private val LightImages = Images(R.drawable.ic_launcher_background)
+
+private val DarkImages = Images(R.drawable.ic_launcher_background)
+
 @Composable
 fun HappyComposeMonkeyTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
@@ -41,17 +52,24 @@ fun HappyComposeMonkeyTheme(
         LightColorPalette
     }
 
-    MaterialTheme(
-        colors = colors,
-        typography = Typography,
-        shapes = Shapes,
-        content = content
-    )
+    val elevation = if(darkTheme) DarkElevation else LightElevation
+    val images = if(darkTheme) DarkImages else LightImages
+    CompositionLocalProvider(
+        LocalElevations provides elevation,
+        localImages provides images
+    ) {
+        MaterialTheme(
+            colors = colors,
+            typography = Typography,
+            shapes = Shapes,
+            content = content
+        )
+    }
 }
 
 /**
  * Alternate to Theme [MaterialTheme] to enable adding own theme systems such as
- * [Elevations] and / or extend types such [Color]
+ * [Elevation] and / or extend types such [Color]
  */
 object HappyComposeMonkeyTheme {
 
@@ -61,10 +79,10 @@ object HappyComposeMonkeyTheme {
         get() = MaterialTheme.colors
 
     /**
-     * Retrieves the current [Elevations] at the call site's position in the hierarchy.
+     * Retrieves the current [Elevation] at the call site's position in the hierarchy.
      * TODO Look into this more
      */
-    val elevations : Elevations
+    val elevation : Elevation
         @Composable
         get() = LocalElevations.current
 }

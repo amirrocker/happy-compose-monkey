@@ -1,4 +1,4 @@
-package de.amirrocker.happycomposemonkey.presentation.course
+package de.amirrocker.happycomposemonkey.presentation.emergency
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.animateDpAsState
@@ -45,12 +45,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.lerp
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.rememberInsetsPaddingValues
 import com.google.accompanist.insets.statusBarsPadding
 import de.amirrocker.happycomposemonkey.R
-import de.amirrocker.happycomposemonkey.model.Course
+import de.amirrocker.happycomposemonkey.model.Emergency
 import de.amirrocker.happycomposemonkey.model.CourseRepo
 import de.amirrocker.happycomposemonkey.model.Lesson
 import de.amirrocker.happycomposemonkey.model.LessonsRepo
@@ -59,11 +58,10 @@ import de.amirrocker.happycomposemonkey.presentation.utils.NetworkImage
 import de.amirrocker.happycomposemonkey.presentation.utils.lerp
 import de.amirrocker.happycomposemonkey.ui.theme.HappyComposeMonkeyTheme
 import de.amirrocker.happycomposemonkey.ui.theme.Purple200
-import de.amirrocker.happycomposemonkey.ui.theme.Teal200
 import kotlinx.coroutines.launch
 
 @Composable
-fun CourseDetails(
+fun EmergencyDetails(
     courseId: Long,
     selectCourse: (Long) -> Unit,
     upPress: () -> Unit
@@ -72,8 +70,8 @@ fun CourseDetails(
     // all data would come from a ViewModel/UseCase/Repository
     val course = remember(courseId) { CourseRepo.getCourse(courseId = courseId) }
 
-    CourseDetails(
-        course = course,
+    EmergencyDetails(
+        emergency = course,
         selectCourse = selectCourse,
         upPress = upPress
     )
@@ -84,8 +82,8 @@ private const val ExpandedSheetAlpha = 0.96f
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun CourseDetails(
-    course: Course,
+fun EmergencyDetails(
+    emergency: Emergency,
     selectCourse: (Long) -> Unit,
     upPress: () -> Unit
 ) {
@@ -127,7 +125,7 @@ fun CourseDetails(
                 }.coerceIn(0f, 1f)
 
                 LessonSheet(
-                    course,
+                    emergency,
                     openFraction,
                     this@BoxWithConstraints.constraints.maxWidth.toFloat(),
                     this@BoxWithConstraints.constraints.maxHeight.toFloat(),
@@ -145,7 +143,7 @@ enum class SheetState { Open, Closed }
 
 @Composable
 fun LessonSheet(
-    course: Course,
+    emergency: Emergency,
     openFraction: Float,
     width: Float,
     height: Float,
@@ -187,7 +185,7 @@ fun LessonSheet(
         }
     ) {
         Lessons(
-            course,
+            emergency,
             openFraction,
             surfaceColor,
             updateSheet
@@ -197,12 +195,12 @@ fun LessonSheet(
 
 @Composable
 fun Lessons(
-    course: Course,
+    emergency: Emergency,
     openFraction: Float,
     surfaceColor:Color = MaterialTheme.colors.surface,
     updateSheet: (SheetState) -> Unit
 ) {
-    val lessons:List<Lesson> = remember(course.courseId) { LessonsRepo.getLessons(course.courseId)}
+    val lessons:List<Lesson> = remember(emergency.courseId) { LessonsRepo.getLessons(emergency.courseId)}
     Box(modifier = Modifier.fillMaxWidth()) {
         //
         val lessonsAlpha = lerp(0f, 1f, 0.2f, 0.8f, openFraction)
@@ -223,7 +221,7 @@ fun Lessons(
             ) {
 
                 Text(
-                    text=course.name,
+                    text=emergency.name,
                     style = MaterialTheme.typography.subtitle1,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis,
@@ -290,7 +288,7 @@ private val LazyListState.isScrolled: Boolean
 @Composable
 fun LessonSheetPreview() {
     LessonSheet(
-        course = courses.first(),
+        emergency = courses.first(),
         openFraction = 0.3f,
         1.0f,
         1.0f

@@ -22,7 +22,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.insets.ProvideWindowInsets
 import com.google.accompanist.insets.navigationBarsHeight
 import com.google.accompanist.insets.navigationBarsPadding
-import de.amirrocker.happycomposemonkey.presentation.courses.CourseTabs
+import de.amirrocker.happycomposemonkey.presentation.emergencies.EmergencyTabs
 import de.amirrocker.happycomposemonkey.ui.theme.HappyComposeMonkeyTheme
 import java.util.*
 
@@ -30,7 +30,7 @@ import java.util.*
 fun HappyComposeMonkeyApp(finishActivity: () -> Unit) {
     ProvideWindowInsets {
         HappyComposeMonkeyTheme {
-            val tabs = remember { CourseTabs.values() }
+            val tabs = remember { EmergencyTabs.values() }
             val navController = rememberNavController()
 
             Scaffold(
@@ -50,16 +50,16 @@ fun HappyComposeMonkeyApp(finishActivity: () -> Unit) {
 @Composable
 fun HappyComposeMonkeyBottomBar(
     navController: NavController,
-    tabs: Array<CourseTabs>
+    tabs: Array<EmergencyTabs>
 ) {
 
     val navBackStackEntry by navController.currentBackStackEntryAsState()
 
     val currentRoute = navBackStackEntry?.destination?.route
-        ?: CourseTabs.FEATURED.route
+        ?: EmergencyTabs.CURRENT.route
 
     val routes = remember {
-        CourseTabs.values().map { it.route }
+        EmergencyTabs.values().map { it.route }
     }
 
     if (currentRoute in routes) {

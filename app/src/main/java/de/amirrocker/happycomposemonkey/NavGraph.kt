@@ -17,10 +17,9 @@ import androidx.navigation.navigation
 import de.amirrocker.happycomposemonkey.MainDestinations.COURSE_DETAIL_ID_KEY
 import de.amirrocker.happycomposemonkey.presentation.Onboarding
 import de.amirrocker.happycomposemonkey.presentation.SignIn
-import de.amirrocker.happycomposemonkey.presentation.Start
-import de.amirrocker.happycomposemonkey.presentation.course.CourseDetails
-import de.amirrocker.happycomposemonkey.presentation.courses.CourseTabs
-import de.amirrocker.happycomposemonkey.presentation.courses.courses
+import de.amirrocker.happycomposemonkey.presentation.emergency.EmergencyDetails
+import de.amirrocker.happycomposemonkey.presentation.emergencies.EmergencyTabs
+import de.amirrocker.happycomposemonkey.presentation.emergencies.emergencies
 
 @Composable
 fun NavGraph(
@@ -79,9 +78,9 @@ fun NavGraph(
         // show a bottom bar with three 'views'
         navigation(
             route=MainDestinations.COURSES_ROUTE,
-            startDestination = CourseTabs.FEATURED.route
+            startDestination = EmergencyTabs.CURRENT.route
         ) {
-            courses(
+            emergencies(
                 onCourseSelected = actions.openCourse,
                 onboardingComplete = onBoardingComplete,
                 signInComplete = onSignInComplete,
@@ -99,7 +98,7 @@ fun NavGraph(
             val arguments = requireNotNull(navBackStackEntry.arguments)
             val currentCourseId = arguments.getLong(COURSE_DETAIL_ID_KEY)
             println("display current course for Id: $currentCourseId")
-            CourseDetails(
+            EmergencyDetails(
                 courseId = currentCourseId,
                 selectCourse = { newCourseId:Long ->
                     actions.relatedCourse(newCourseId, navBackStackEntry)
